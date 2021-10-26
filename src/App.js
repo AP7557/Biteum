@@ -1,7 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    axios
+      .get('/hello')
+      .then((response) => response.data)
+      .then((data) => console.log(data));
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -13,8 +22,7 @@ function App() {
           className="App-link"
           href="https://reactjs.org"
           target="_blank"
-          rel="noopener noreferrer"
-        >
+          rel="noopener noreferrer">
           Learn React
         </a>
       </header>
