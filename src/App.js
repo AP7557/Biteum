@@ -5,28 +5,56 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Cards from './Card';
 
+const theme = {
+  Bitcoin: {
+    CardColor: 'rgba(77, 77, 78, 0.4)',
+    CryptoColor: '#F2A900',
+    BuyColor: '#00E574',
+    SellColor: '#FDB5B5',
+    ExchangeOneColor: '#F3BA2F',
+    ExchangeTwoColor: '#BCC4FE',
+    ButtonBackgroundColor: 'rgba(30, 3, 3, 0.2)',
+    BtnRecommendationBackgroundColor: '#1E0303',
+  },
+  Ethereum: {
+    CardColor: 'rgba(236, 240, 241, 0.4)',
+    CryptoColor: '#8E5B19',
+    BuyColor: '#026600',
+    SellColor: '#A82C2C',
+    ExchangeOneColor: '#816114',
+    ExchangeTwoColor: '#3C3F54',
+    ButtonBackgroundColor: 'rgba(250, 253, 255, 0.2)',
+    BtnRecommendationBackgroundColor: '#FAFDFF',
+  },
+};
 function App() {
-  const [data, setData] = useState([]);
-  /**{CardColor: 'Color',
-   *  Crypto: {CryptoName: 'Bitcoin',
-   *           CryptoColor: 'Color'},,
-   *  Type: {BuyColor: 'Color',
-   *         SellColor: 'Color'},
+  /**{
+   *  CryptoName: 'Bitcoin',
    *  ExchangeOne: {ExchangeName: 'BinanceUS',
-   *                ExchangeColor: 'Color'},
    *                   BidPrice: name,
    *                   AskPrice: name},
    *  ExchangeTwo: {ExchangeName: 'CoinbasePro',
-   *                ExchangeColor: 'Color'},
    *                BidPrice: name,
-   *                AskPrice: name},
-   *  BackgroundColor: 'Color'}
+   *                AskPrice: name}
    *  } */
+  const [data, setData] = useState([]);
+
   useEffect(() => {
     axios
-      .get('/hello')
+      .get('/getBitcoinData')
       .then((response) => response.data)
-      .then((data) => console.log(data));
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
+      .get('/getEthereumData')
+      .then((response) => response.data)
+      .then((data) => console.log(data))
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
