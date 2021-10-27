@@ -11,5 +11,4 @@ const Name = styled.h1`
   margin: 0;
   margin-bottom: 20px;
   font-weight: normal;
-opacity:
 `;
