@@ -1,30 +1,39 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function Price() {
+export default function Price(props) {
   return (
     <PriceContainer>
-      <Button onClick={() => window.open('http://www.google.com', "_blank")}>
-        Price
-      </Button>
-      <Button>Price</Button>
+      <Type>BUY</Type>
+      <Button backgroundColor={props.backgroundColor}>{props.children}</Button>
     </PriceContainer>
   );
 }
 
-const PriceContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
+const Button = styled.button`
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 16px;
+  width: 100%;
+  height: 55px;
+  color: ${(props) => (props.backgroundColor ? '' : '#c8c8c8')};
+  background-color: ${(props) => props.backgroundColor || 'transparent'};
+  text-align: center;
 `;
 
-const Button = styled.button`
-  background: #1e0303;
-  border: 2px solid #00e574;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 16px;
-  font-size: 30px;
-  padding: 10px 20px;
-  color: #00e574;
-  cursor: pointer;
+const PriceContainer = styled.div`
+  border-radius: 5px;
+  width: 30%;
+`;
+
+const Type = styled.div`
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 400;
+  text-align: center;
 `;

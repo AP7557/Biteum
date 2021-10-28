@@ -1,32 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Cards from './Card';
+import Cards from './Cards';
 
 const theme = {
   Bitcoin: {
-    CardColor: 'rgba(77, 77, 78, 0.4)',
-    CryptoColor: '#F2A900',
-    BuyColor: '#00E574',
-    SellColor: '#FDB5B5',
-    ExchangeOneColor: '#F3BA2F',
-    ExchangeTwoColor: '#BCC4FE',
-    ButtonBackgroundColor: 'rgba(30, 3, 3, 0.2)',
-    BtnRecommendationBackgroundColor: '#1E0303',
+    CryptoColor: '#FFC300',
+    BtnRecommendationBackgroundColor: '#69ac0e',
   },
   Ethereum: {
-    CardColor: 'rgba(236, 240, 241, 0.4)',
-    CryptoColor: '#8E5B19',
+    CryptoColor: '#FF8E00',
     BuyColor: '#026600',
     SellColor: '#A82C2C',
     ExchangeOneColor: '#816114',
     ExchangeTwoColor: '#3C3F54',
-    ButtonBackgroundColor: 'rgba(250, 253, 255, 0.2)',
-    BtnRecommendationBackgroundColor: '#FAFDFF',
+    BtnRecommendationBackgroundColor: '#69ac0e',
   },
 };
+
 function App() {
   /**{
    *  CryptoName: 'Bitcoin',
@@ -37,13 +29,54 @@ function App() {
    *                BidPrice: name,
    *                AskPrice: name}
    *  } */
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    Bitcoin: {
+      CryptoName: 'Bitcoin',
+      CryptoLogo: 'bitcoin1.png',
+      QuoteSymbol: 'USD',
+      CryptoTicker: 'BTC',
+      ExchangeOne: {
+        ExchangeName: 'BinanceUS',
+        BidPrice: 23423,
+        AskPrice: 241234,
+        ExchangeLink: 'https://www.binance.us/en/trade/pro/BTCUSD',
+      },
+      ExchangeTwo: {
+        ExchangeName: 'CoinbasePro',
+        BidPrice: 3432,
+        AskPrice: 3453,
+        ExchangeLink: 'https://www.binance.us/en/trade/pro/BTCUSD',
+      },
+    },
+    Ethereum: {
+      CryptoName: 'Ethereum',
+      CryptoLogo: 'ethereum1.png',
+      QuoteSymbol: 'USD',
+      CryptoTicker: 'ETC',
+      ExchangeOne: {
+        ExchangeName: 'BinanceUS',
+        BidPrice: 123,
+        AskPrice: 442,
+        ExchangeLink: 'https://www.binance.us/en/trade/pro/ETCUSD',
+      },
+      ExchangeTwo: {
+        ExchangeName: 'CoinbasePro',
+        BidPrice: 2345,
+        AskPrice: 423,
+        ExchangeLink: 'https://www.binance.us/en/trade/pro/ETCUSD',
+      },
+    },
+  });
 
-  useEffect(() => {
+  const apiCall = () => {
     axios
       .get('/getBitcoinData')
       .then((response) => response.data)
-      .then((data) => console.log(data))
+      .then((data) =>
+        setData((prev) => {
+          return { ...prev, Bitcoin: data };
+        })
+      )
       .catch((error) => {
         console.log(error);
       });
@@ -51,17 +84,31 @@ function App() {
     axios
       .get('/getEthereumData')
       .then((response) => response.data)
-      .then((data) => console.log(data))
+      .then((data) =>
+        setData((prev) => {
+          return { ...prev, Ethereum: data };
+        })
+      )
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  };
+
+  // useEffect(() => {
+  //   apiCall();
+  //   console.log('Before');
+  //   const interval = setInterval(() => {
+  //     console.log('After');
+  //     apiCall();
+  //   }, 65000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   return (
     <div>
       <MainPage>
-        <Cards color={'rgba(77, 77, 78, 0.4)'} cryptoName={'Bitcoin'} />
-        <Cards color={'rgba(236, 240, 241, 0.4)'} cryptoName={'Ethereum'} />
+        <Cards theme={theme.Bitcoin} data={data.Bitcoin} />
+        <Cards theme={theme.Ethereum} data={data.Ethereum} />
       </MainPage>
     </div>
   );
@@ -71,12 +118,9 @@ const MainPage = styled.div`
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  flex-wrap: wrap-reverse;
-  background: linear-gradient(
-    243.58deg,
-    #4d4d4e -16.05%,
-    rgba(60, 60, 61, 0) 120.32%
-  );
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  background: #383842;
+  font-family: serif, monospace;
 `;
 export default App;
