@@ -1,1 +1,1 @@
-web: node server/app.py
+web: node server/index.js
