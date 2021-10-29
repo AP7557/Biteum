@@ -14,11 +14,15 @@ const getApiLinks = (symbol) => [
   ),
 ];
 
-const setExchangeBidAskInDic = (dic, data, whichExchange) => {
+const setExchangeInDic = (dic, data, whichExchange) => {
   dic[whichExchange] = {
     ExchangeName: data.exchange,
     BidPrice: data.orderBook.bids[0].price,
     AskPrice: data.orderBook.asks[0].price,
+    ExchangeLink:
+      data.exchange === 'BinanceUS'
+        ? `https://www.binance.us/en/trade/pro/${dic.CryptoTicker}_${dic.QuoteSymbol}`
+        : `https://pro.coinbase.com/trade/${dic.CryptoTicker}-${dic.QuoteSymbol}`,
   };
   return dic;
 };
@@ -26,9 +30,10 @@ const setExchangeBidAskInDic = (dic, data, whichExchange) => {
 const getDataInDic = (data, CryptoName) => {
   const dic = {};
   dic['CryptoName'] = CryptoName;
-  dic['CryptoLink'] = ''
-  setExchangeBidAskInDic(dic, data[0].orderBooks[0], 'ExchangeOne');
-  setExchangeBidAskInDic(dic, data[1].orderBooks[0], 'ExchangeTwo');
+  dic['QuoteSymbol'] = data[0].quoteSymbol;
+  dic['CryptoTicker'] = data[0].baseSymbol;
+  setExchangeInDic(dic, data[0].orderBooks[0], 'ExchangeOne');
+  setExchangeInDic(dic, data[1].orderBooks[0], 'ExchangeTwo');
   return dic;
 };
 

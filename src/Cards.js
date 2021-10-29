@@ -15,6 +15,8 @@ export default function Cards({ theme, data }) {
       />
       <Line />
       <Exchange
+        exchangeOneLink={data.ExchangeOne?.ExchangeLink}
+        exchangeTwoLink={data.ExchangeTwo?.ExchangeLink}
         exchangeOneName={data.ExchangeOne?.ExchangeName}
         exchangeOneBidPrice={data.ExchangeOne?.BidPrice}
         exchangeOneAskPrice={data.ExchangeOne?.AskPrice}

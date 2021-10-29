@@ -21,52 +21,22 @@ const theme = {
 
 function App() {
   /**{
-   *  CryptoName: 'Bitcoin',
-   *  ExchangeOne: {ExchangeName: 'BinanceUS',
+   *  CryptoName: 'name',
+   *  CryptoLogo: 'file',
+   *  QuoteSymbol: 'name',
+   *  CryptoTicker: 'name',
+   *  ExchangeOne: {ExchangeName: 'name',
    *                   BidPrice: name,
-   *                   AskPrice: name},
-   *  ExchangeTwo: {ExchangeName: 'CoinbasePro',
+   *                   AskPrice: name,
+   *                   ExchangeLink: 'link name',
+   *              },
+   *  ExchangeTwo: {ExchangeName: 'name',
    *                BidPrice: name,
-   *                AskPrice: name}
+   *                AskPrice: name,
+   *                ExchangeLink: 'link name'
+   *              },
    *  } */
-  const [data, setData] = useState({
-    Bitcoin: {
-      CryptoName: 'Bitcoin',
-      CryptoLogo: 'bitcoin1.png',
-      QuoteSymbol: 'USD',
-      CryptoTicker: 'BTC',
-      ExchangeOne: {
-        ExchangeName: 'BinanceUS',
-        BidPrice: 23423,
-        AskPrice: 241234,
-        ExchangeLink: 'https://www.binance.us/en/trade/pro/BTCUSD',
-      },
-      ExchangeTwo: {
-        ExchangeName: 'CoinbasePro',
-        BidPrice: 3432,
-        AskPrice: 3453,
-        ExchangeLink: 'https://www.binance.us/en/trade/pro/BTCUSD',
-      },
-    },
-    Ethereum: {
-      CryptoName: 'Ethereum',
-      CryptoLogo: 'ethereum1.png',
-      QuoteSymbol: 'USD',
-      CryptoTicker: 'ETC',
-      ExchangeOne: {
-        ExchangeName: 'BinanceUS',
-        BidPrice: 123,
-        AskPrice: 442,
-        ExchangeLink: 'https://www.binance.us/en/trade/pro/ETCUSD',
-      },
-      ExchangeTwo: {
-        ExchangeName: 'CoinbasePro',
-        BidPrice: 2345,
-        AskPrice: 423,
-        ExchangeLink: 'https://www.binance.us/en/trade/pro/ETCUSD',
-      },
-    },
-  });
+  const [data, setData] = useState({ Bitcoin: {}, Ethereum: {} });
 
   const apiCall = () => {
     axios
@@ -74,7 +44,7 @@ function App() {
       .then((response) => response.data)
       .then((data) =>
         setData((prev) => {
-          return { ...prev, Bitcoin: data };
+          return { ...prev, Bitcoin: { ...data, CryptoLogo: 'bitcoin1.png' } };
         })
       )
       .catch((error) => {
@@ -86,7 +56,10 @@ function App() {
       .then((response) => response.data)
       .then((data) =>
         setData((prev) => {
-          return { ...prev, Ethereum: data };
+          return {
+            ...prev,
+            Ethereum: { ...data, CryptoLogo: 'ethereum1.png' },
+          };
         })
       )
       .catch((error) => {
@@ -94,15 +67,14 @@ function App() {
       });
   };
 
-  // useEffect(() => {
-  //   apiCall();
-  //   console.log('Before');
-  //   const interval = setInterval(() => {
-  //     console.log('After');
-  //     apiCall();
-  //   }, 65000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    apiCall();
+    const interval = setInterval(() => {
+      console.log('After');
+      apiCall();
+    }, 65000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -116,6 +88,7 @@ function App() {
 
 const MainPage = styled.div`
   min-height: 100vh;
+  min-width: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

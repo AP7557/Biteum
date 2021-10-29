@@ -5,7 +5,11 @@ export default function Price(props) {
   return (
     <PriceContainer>
       <Type>BUY</Type>
-      <Button backgroundColor={props.backgroundColor}>{props.children}</Button>
+      <Button
+        onClick={() => window.open(props.link, '_blank')}
+        backgroundColor={props.backgroundColor}>
+        {props.children}
+      </Button>
     </PriceContainer>
   );
 }

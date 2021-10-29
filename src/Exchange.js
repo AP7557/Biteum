@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Price from './Price';
 
 export default function Exchange(props) {
-  console.log(props, props.btnRecommendationBackgroundColor);
   return (
     <div>
       <EachExchangeContainer>
         <ExchangeName>{props.exchangeOneName}</ExchangeName>
         <Price
+          link={props.exchangeOneLink}
           backgroundColor={
             props.exchangeOneAskPrice < props.exchangeTwoAskPrice &&
             props.btnRecommendationBackgroundColor
@@ -17,6 +17,7 @@ export default function Exchange(props) {
           {Math.round(props.exchangeOneAskPrice * 100) / 100 || 'Loading'}
         </Price>
         <Price
+          link={props.exchangeOneLink}
           backgroundColor={
             props.exchangeOneBidPrice > props.exchangeTwoBidPrice &&
             props.btnRecommendationBackgroundColor
@@ -27,6 +28,7 @@ export default function Exchange(props) {
       <EachExchangeContainer>
         <ExchangeName>{props.exchangeTwoName}</ExchangeName>
         <Price
+          link={props.exchangeTwoLink}
           backgroundColor={
             props.exchangeTwoAskPrice < props.exchangeOneAskPrice &&
             props.btnRecommendationBackgroundColor
@@ -35,6 +37,7 @@ export default function Exchange(props) {
           {Math.round(props.exchangeTwoAskPrice * 100) / 100 || 'Loading'}
         </Price>
         <Price
+          link={props.exchangeTwoLink}
           backgroundColor={
             props.exchangeTwoBidPrice > props.exchangeOneBidPrice &&
             props.btnRecommendationBackgroundColor
