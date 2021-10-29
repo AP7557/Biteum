@@ -5,7 +5,10 @@ const path = require('path');
 const PORT = process.env.PORT || 4000;
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../build/static')));
+app.use(express.static(path.join(__dirname, '../build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join((__dirname, '../build/index.html')));
+});
 
 const getApiLinks = (symbol) => [
   axios.get(
@@ -59,10 +62,6 @@ app.get('/getEthereumData', (req, res) => {
     .catch((error) => {
       console.log(error);
     });
-});
-
-app.get('*', (req, res) => {
-  res.redirect('/getBitcoinData');
 });
 
 app.listen(PORT, () => {
