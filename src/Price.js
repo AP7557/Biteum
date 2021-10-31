@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export default function Price(props) {
   return (
     <PriceContainer>
-      <Type>BUY</Type>
+      <Type>{props.type}</Type>
       <Button
         onClick={() => window.open(props.link, '_blank')}
         backgroundColor={props.backgroundColor}>
@@ -25,7 +25,8 @@ const Button = styled.button`
   width: 100%;
   height: 55px;
   color: ${(props) => (props.backgroundColor ? '' : '#c8c8c8')};
-  background-color: ${(props) => props.backgroundColor || 'transparent'};
+  background-color: ${(props) =>
+    props.backgroundColor ? '#69ac0e' : 'transparent'};
   text-align: center;
   @media (max-width: 540px) {
     width: 60%;

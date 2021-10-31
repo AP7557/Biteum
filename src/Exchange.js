@@ -8,19 +8,18 @@ export default function Exchange(props) {
       <EachExchangeContainer>
         <ExchangeName>{props.exchangeOneName}</ExchangeName>
         <Price
+          type={'Buy'}
           link={props.exchangeOneLink}
           backgroundColor={
-            props.exchangeOneAskPrice < props.exchangeTwoAskPrice &&
-            props.btnRecommendationBackgroundColor
-          }
-          {...props}>
+            props.exchangeOneAskPrice < props.exchangeTwoAskPrice
+          }>
           {Math.round(props.exchangeOneAskPrice * 100) / 100 || 'Loading'}
         </Price>
         <Price
+          type={'Sell'}
           link={props.exchangeOneLink}
           backgroundColor={
-            props.exchangeOneBidPrice > props.exchangeTwoBidPrice &&
-            props.btnRecommendationBackgroundColor
+            props.exchangeOneBidPrice > props.exchangeTwoBidPrice
           }>
           {Math.round(props.exchangeOneBidPrice * 100) / 100 || 'Loading'}
         </Price>
@@ -28,19 +27,18 @@ export default function Exchange(props) {
       <EachExchangeContainer>
         <ExchangeName>{props.exchangeTwoName}</ExchangeName>
         <Price
+          type={'Buy'}
           link={props.exchangeTwoLink}
           backgroundColor={
-            props.exchangeTwoAskPrice < props.exchangeOneAskPrice &&
-            props.btnRecommendationBackgroundColor
-          }
-          {...props}>
+            props.exchangeTwoAskPrice < props.exchangeOneAskPrice
+          }>
           {Math.round(props.exchangeTwoAskPrice * 100) / 100 || 'Loading'}
         </Price>
         <Price
+          type={'Sell'}
           link={props.exchangeTwoLink}
           backgroundColor={
-            props.exchangeTwoBidPrice > props.exchangeOneBidPrice &&
-            props.btnRecommendationBackgroundColor
+            props.exchangeTwoBidPrice > props.exchangeOneBidPrice
           }>
           {Math.round(props.exchangeTwoBidPrice * 100) / 100 || 'Loading'}
         </Price>

@@ -7,15 +7,9 @@ import Cards from './Cards';
 const theme = {
   Bitcoin: {
     CryptoColor: '#FFC300',
-    BtnRecommendationBackgroundColor: '#69ac0e',
   },
   Ethereum: {
     CryptoColor: '#FF8E00',
-    BuyColor: '#026600',
-    SellColor: '#A82C2C',
-    ExchangeOneColor: '#816114',
-    ExchangeTwoColor: '#3C3F54',
-    BtnRecommendationBackgroundColor: '#69ac0e',
   },
 };
 
