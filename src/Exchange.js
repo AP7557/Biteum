@@ -54,6 +54,10 @@ const ExchangeName = styled.div`
   color: white;
   margin-top: 45px;
   width: 170px;
+  @media (max-width: 540px) {
+    margin-top: 0;
+    width: auto;
+  }
 `;
 
 const EachExchangeContainer = styled.div`
@@ -61,4 +65,7 @@ const EachExchangeContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 30px 0;
+  @media (max-width: 540px) {
+    flex-direction: column;
+  }
 `;

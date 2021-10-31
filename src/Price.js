@@ -27,11 +27,22 @@ const Button = styled.button`
   color: ${(props) => (props.backgroundColor ? '' : '#c8c8c8')};
   background-color: ${(props) => props.backgroundColor || 'transparent'};
   text-align: center;
+  @media (max-width: 540px) {
+    width: 60%;
+  }
 `;
 
 const PriceContainer = styled.div`
   border-radius: 5px;
   width: 30%;
+  @media (max-width: 540px) {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    margin: 10px;
+    justify-content: space-between;
+  }
 `;
 
 const Type = styled.div`

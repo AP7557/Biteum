@@ -36,7 +36,44 @@ function App() {
    *                ExchangeLink: 'link name'
    *              },
    *  } */
-  const [data, setData] = useState({ Bitcoin: {}, Ethereum: {} });
+  const [data, setData] = useState({
+    Bitcoin: {
+      CryptoName: 'Bitcoin',
+      CryptoLogo: 'bitcoin1.png',
+      QuoteSymbol: 'USD',
+      CryptoTicker: 'BTC',
+      ExchangeOne: {
+        ExchangeName: 'BinanceUS',
+        BidPrice: 324,
+        AskPrice: 234,
+        ExchangeLink: 'link name',
+      },
+      ExchangeTwo: {
+        ExchangeName: 'CoinbasePro',
+        BidPrice: 232,
+        AskPrice: 234,
+        ExchangeLink: 'link name',
+      },
+    },
+    Ethereum: {
+      CryptoName: 'Ethereum',
+      CryptoLogo: 'ethereum1.png',
+      QuoteSymbol: 'USD',
+      CryptoTicker: 'ETH',
+      ExchangeOne: {
+        ExchangeName: 'BinanceUS',
+        BidPrice: 231,
+        AskPrice: 123,
+        ExchangeLink: 'link name',
+      },
+      ExchangeTwo: {
+        ExchangeName: 'CoinbasePro',
+        BidPrice: 132,
+        AskPrice: 123,
+        ExchangeLink: 'link name',
+      },
+    },
+  });
 
   const apiCall = () => {
     axios
@@ -77,23 +114,19 @@ function App() {
   }, []);
 
   return (
-    <div>
-      <MainPage>
-        <Cards theme={theme.Bitcoin} data={data.Bitcoin} />
-        <Cards theme={theme.Ethereum} data={data.Ethereum} />
-      </MainPage>
-    </div>
+    <MainPage>
+      <Cards theme={theme.Bitcoin} data={data.Bitcoin} />
+      <Cards theme={theme.Ethereum} data={data.Ethereum} />
+    </MainPage>
   );
 }
 
 const MainPage = styled.div`
   min-height: 100vh;
-  min-width: 100vh;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  background: #383842;
   font-family: serif, monospace;
 `;
 export default App;
