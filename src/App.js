@@ -25,49 +25,43 @@ function App() {
 
   //Get data from server
   const apiCall = () => {
+    const tempData = { Bitcoin: {}, Ethereum: {} };
     //API call to server to get BTCs data, and then put that data
-    //along with its logo in Bitcoin object in data
+    //along with its logo in Bitcoin object in temp data
     axios
       .get('/getBitcoinData')
       .then((response) => response.data)
-      .then((data) =>
-        setData((prev) => {
-          console.log(data);
-          return {
-            ...prev,
-            Bitcoin: {
-              ...data,
-              CryptoLogo: 'bitcoin1.png',
-              CryptoColor: '#FFC300',
-            },
-          };
-        })
+      .then(
+        (data) =>
+          (tempData.Bitcoin = {
+            ...data,
+            CryptoLogo: 'bitcoin1.png',
+            CryptoColor: '#FFC300',
+          })
       )
       .catch((error) => {
         console.log(error);
       });
 
     //API call to server to get ETHs data, and then put that data
-    //along with its logo in Ethereum object in data
-    axios
-      .get('/getEthereumData')
-      .then((response) => response.data)
-      .then((data) =>
-        setData((prev) => {
-          console.log(data);
-          return {
-            ...prev,
-            Ethereum: {
-              ...data,
-              CryptoLogo: 'ethereum1.png',
-              CryptoColor: '#FF8E00',
-            },
-          };
-        })
-      )
-      .catch((error) => {
-        console.log(error);
-      });
+    //along with its logo in Ethereum object in temp data
+    // axios
+    //   .get('/getEthereumData')
+    //   .then((response) => response.data)
+    //   .then(
+    //     (data) =>
+    //       (tempData.Ethereum = {
+    //         ...data,
+    //         CryptoLogo: 'ethereum1.png',
+    //         CryptoColor: '#FF8E00',
+    //       })
+    //   )
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    //Put the temp data in the state
+    setData({ Bitcoin: tempData.Bitcoin, Ethereum: tempData.Ethereum });
   };
 
   useEffect(() => {
