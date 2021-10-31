@@ -24,14 +24,15 @@ function App() {
   const [data, setData] = useState({ Bitcoin: {}, Ethereum: {} });
 
   //Get data from server
-  const apiCall = async() => {
+  const apiCall = () => {
     //API call to server to get BTCs data, and then put that data
     //along with its logo in Bitcoin object in data
-    await axios
+    axios
       .get('/getBitcoinData')
       .then((response) => response.data)
       .then((data) =>
         setData((prev) => {
+          console.log(data);
           return {
             ...prev,
             Bitcoin: {
@@ -48,11 +49,12 @@ function App() {
 
     //API call to server to get ETHs data, and then put that data
     //along with its logo in Ethereum object in data
-    await axios
+    axios
       .get('/getEthereumData')
       .then((response) => response.data)
       .then((data) =>
         setData((prev) => {
+          console.log(data);
           return {
             ...prev,
             Ethereum: {
