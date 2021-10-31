@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Return the header in the card with crypto name, ticker pair and its image
 export default function Crypto(props) {
   return (
     <Header>

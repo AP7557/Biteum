@@ -2,21 +2,13 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Cards from './Cards';
-
-const theme = {
-  Bitcoin: {
-    CryptoColor: '#FFC300',
-  },
-  Ethereum: {
-    CryptoColor: '#FF8E00',
-  },
-};
+import Cards from './Card/Cards';
 
 function App() {
-  /**{
+  /**[Bitcoin:{
    *  CryptoName: 'name',
    *  CryptoLogo: 'file',
+   *  CryptoColor: 'color',
    *  QuoteSymbol: 'name',
    *  CryptoTicker: 'name',
    *  ExchangeOne: {ExchangeName: 'name',
@@ -29,22 +21,34 @@ function App() {
    *                AskPrice: name,
    *                ExchangeLink: 'link name'
    *              },
-   *  } */
+   *  }, ...] */
   const [data, setData] = useState({ Bitcoin: {}, Ethereum: {} });
 
+  //Get data from server
   const apiCall = () => {
+    //API call to server to get BTCs data, and then put that data
+    //along with its logo in Bitcoin object in data
     axios
       .get('/getBitcoinData')
       .then((response) => response.data)
       .then((data) =>
         setData((prev) => {
-          return { ...prev, Bitcoin: { ...data, CryptoLogo: 'bitcoin1.png' } };
+          return {
+            ...prev,
+            Bitcoin: {
+              ...data,
+              CryptoLogo: 'bitcoin1.png',
+              CryptoColor: '#FFC300',
+            },
+          };
         })
       )
       .catch((error) => {
         console.log(error);
       });
 
+    //API call to server to get ETHs data, and then put that data
+    //along with its logo in Ethereum object in data
     axios
       .get('/getEthereumData')
       .then((response) => response.data)
@@ -52,7 +56,11 @@ function App() {
         setData((prev) => {
           return {
             ...prev,
-            Ethereum: { ...data, CryptoLogo: 'ethereum1.png' },
+            Ethereum: {
+              ...data,
+              CryptoLogo: 'ethereum1.png',
+              CryptoColor: '#FF8E00',
+            },
           };
         })
       )
@@ -62,9 +70,10 @@ function App() {
   };
 
   useEffect(() => {
+    //Initial call to API
     apiCall();
+    //Call API every 65 seconds as we can only make 10 api call in 60 seconds
     const interval = setInterval(() => {
-      console.log('After');
       apiCall();
     }, 65000);
     return () => clearInterval(interval);
@@ -72,8 +81,8 @@ function App() {
 
   return (
     <MainPage>
-      <Cards theme={theme.Bitcoin} data={data.Bitcoin} />
-      <Cards theme={theme.Ethereum} data={data.Ethereum} />
+      <Cards data={data.Bitcoin} />
+      <Cards data={data.Ethereum} />
     </MainPage>
   );
 }

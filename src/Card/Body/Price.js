@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+//Return a view of the price of the ticker for the exchange and its type
 export default function Price(props) {
   return (
     <PriceContainer>
