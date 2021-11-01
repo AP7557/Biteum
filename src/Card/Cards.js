@@ -31,7 +31,7 @@ const Card = styled.div`
     margin: 30px;
   }
   @media (max-width: 540px) {
-    width: 14em;
+    width: 100%;
   }
 `;
 
