@@ -1,5 +1,5 @@
 # [Biteum](https://biteum.herokuapp.com/)
-Biteum is an app that allows a user to see the Bid and Ask of Bitcoin and Ethereum for two different exchanges (BinanceUs and CoinbasePro).
+Biteum is an app that allows a user to see the Bid and Ask of Bitcoin and Ethereum for two different exchanges (Gemini and CoinbasePro).
 
 ## Requirements and RUN
 1. `Run command in terminal (in your project directory): npm i`
