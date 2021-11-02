@@ -2,23 +2,32 @@ import React from 'react';
 import styled from 'styled-components';
 import Crypto from './Header/Crypto';
 import Exchange from './Body/Exchange';
+import { cryptoDataType } from '../App';
 
-//Return a view of a Card
-export default function Cards({ data }) {
+interface CardProps {
+  data: cryptoDataType;
+}
+
+/**
+* Display the card
+* @param data
+* @return React.FunctionComponent
+*/
+const Cards: React.FC<CardProps> = ({ data }) => {
   return (
     <Card>
       <Crypto
-        color={data.CryptoColor}
         logo={data.CryptoLogo}
         name={data.CryptoName}
-        quote={data.QuoteSymbol}
+        color={data.CryptoColor}
         ticker={data.CryptoTicker}
+        quote={data.QuoteSymbol}
       />
       <Line />
       <Exchange data={data} />
     </Card>
   );
-}
+};
 
 const Card = styled.div`
   width: 35em;
@@ -39,3 +48,5 @@ const Line = styled.div`
   border-bottom: 1px solid #000000;
   margin: 0 20px;
 `;
+
+export default Cards;

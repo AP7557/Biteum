@@ -10,11 +10,17 @@ const app = express();
 //Use the build folder to serve the static files
 app.use(express.static(path.join(__dirname, '../build')));
 //For path '/' run the clients build index.html
+
 app.get('/', (req, res) => {
   res.sendFile(path.join((__dirname, '../build/index.html')));
 });
 
-//Get the api link with the distinct crypto/USD pair
+/**
+ * Get the api link with the distinct crypto/USD pair
+ * @param {string} symbol
+ * @return {list} list of api links
+ */
+
 const getApiLinks = (symbol) => [
   axios.get(
     `https://dev-api.shrimpy.io/v1/orderbooks?exchange=gemini&baseSymbol=${symbol}&quoteSymbol=USD&limit=1`
@@ -24,7 +30,13 @@ const getApiLinks = (symbol) => [
   ),
 ];
 
-//Set the exchange data(Its bid, ask, name and link) in the dictionary
+/**
+ * Set the exchange data(Its bid, ask, name and link) in the dictionary
+ * @param {object} dic
+ * @param {object} data
+ * @param {string} whichExchange
+ * @return {object} dic
+ */
 const setExchangeInDic = (dic, data, whichExchange) => {
   dic[whichExchange] = {
     ExchangeName: data.exchange,
@@ -38,12 +50,15 @@ const setExchangeInDic = (dic, data, whichExchange) => {
   return dic;
 };
 
-//Get the data from the api and set the data
-//(Crypto name, quote symbol(USD), ticker for the crypto name and call the setExchangeInDic function)
-//in the dictionary
-const getDataInDic = (data, CryptoName) => {
+/**
+ * Get the data from the api and set the data in dictionary
+ * @param {object} data
+ * @param {string} cryptoName
+ * @return {object} dic
+ */
+const setDataInDic = (data, cryptoName) => {
   const dic = {};
-  dic['CryptoName'] = CryptoName;
+  dic['CryptoName'] = cryptoName;
   dic['QuoteSymbol'] = data[0].quoteSymbol;
   dic['CryptoTicker'] = data[0].baseSymbol;
   setExchangeInDic(dic, data[0].orderBooks[0], 'ExchangeOne');
@@ -51,17 +66,14 @@ const getDataInDic = (data, CryptoName) => {
   return dic;
 };
 
+/**
+ * Promise of both api links with crypto name BTC, set the data and send the data to the client
+ */
 app.get('/getBitcoinData', (req, res) => {
-  //Resolve both the api links promise with crypto name BTC
-  //Once its resolved get the data are return the data as a list
-  //Then call the getDataInDic function to set the data in the dictionary and send it to client
   Promise.all(getApiLinks('BTC'))
-    .then((response) => {
-      console.log(response[0].data[0]);
-      return [response[0].data[0], response[1].data[0]];
-    })
+    .then((response) => [response[0].data[0], response[1].data[0]])
     .then((data) => {
-      res.json(getDataInDic(data, 'Bitcoin'));
+      res.json(setDataInDic(data, 'Bitcoin'));
     })
     .catch((error) => {
       //If any error occurs log the error
@@ -69,14 +81,14 @@ app.get('/getBitcoinData', (req, res) => {
     });
 });
 
+/**
+ * Promise of both api links with crypto name ETH, set the data and send the data to the client
+ */
 app.get('/getEthereumData', (req, res) => {
-  //Resolve both the api links promise with crypto name ETH
-  //Once its resolved get the data are return the data as a list
-  //Then call the getDataInDic function to set the data in the dictionary and send it to client
   Promise.all(getApiLinks('ETH'))
     .then((response) => [response[0].data[0], response[1].data[0]])
     .then((data) => {
-      res.json(getDataInDic(data, 'Ethereum'));
+      res.json(setDataInDic(data, 'Ethereum'));
     })
     .catch((error) => {
       //If any error occurs log the error

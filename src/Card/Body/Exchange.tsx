@@ -1,9 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
+import { cryptoDataType } from '../../App';
 import Price from './Price';
 
-//Return the body of the card, both exchange name and its price and type of buy and sell
-export default function Exchange({ data }) {
+interface ExchangeProps {
+  data: cryptoDataType;
+}
+
+/**
+ * Display the Exchange data in the card
+ * @param data
+ * @return React.FunctionComponent
+ */
+const Exchange: React.FC<ExchangeProps> = ({ data }) => {
   return (
     <div>
       <EachExchangeContainer>
@@ -46,7 +55,7 @@ export default function Exchange({ data }) {
       </EachExchangeContainer>
     </div>
   );
-}
+};
 
 const ExchangeName = styled.div`
   font-size: 30px;
@@ -68,3 +77,5 @@ const EachExchangeContainer = styled.div`
     flex-direction: column;
   }
 `;
+
+export default Exchange;

@@ -1,8 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Return the header in the card with crypto name, ticker pair and its image
-export default function Crypto(props) {
+interface CryptoProps {
+  logo: string;
+  color: string;
+  name: string;
+  ticker: string;
+  quote: string;
+}
+
+/**
+* Display the logo, name, ticker and quote of a crypto
+* @param props - {logo, color, name, ticker, quote}
+* @return React.FunctionComponent
+*/
+const Crypto: React.FC<CryptoProps> = (props) => {
   return (
     <Header>
       <Image src={props.logo} alt={'Loading'} />
@@ -14,7 +26,7 @@ export default function Crypto(props) {
       </Label>
     </Header>
   );
-}
+};
 
 const Name = styled.h1`
   font-size: 50px;
@@ -53,3 +65,5 @@ const Ticker = styled.span`
   font-size: 20px;
   padding-left: 10px;
 `;
+
+export default Crypto;

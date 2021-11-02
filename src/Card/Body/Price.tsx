@@ -1,8 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-//Return a view of the price of the ticker for the exchange and its type
-export default function Price(props) {
+interface PriceProps {
+  type: string;
+  backgroundColor: boolean;
+  link: string;
+}
+/**
+ * Display the price (bid/ask) and the type(buy/sell)
+ * @param props - {type, backgroundColor, link}
+ * @return React.FunctionComponent
+ */
+const Price: React.FC<PriceProps> = (props) => {
   return (
     <PriceContainer>
       <Type>{props.type}</Type>
@@ -13,9 +22,9 @@ export default function Price(props) {
       </Button>
     </PriceContainer>
   );
-}
+};
 
-const Button = styled.button`
+const Button = styled.button<{ backgroundColor: boolean }>`
   font-size: 20px;
   cursor: pointer;
   font-weight: 600;
@@ -54,3 +63,5 @@ const Type = styled.div`
   font-weight: 400;
   text-align: center;
 `;
+
+export default Price;
