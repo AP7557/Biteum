@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 //Get the api link with the distinct crypto/USD pair
 const getApiLinks = (symbol) => [
   axios.get(
-    `https://dev-api.shrimpy.io/v1/orderbooks?exchange=binanceus&baseSymbol=${symbol}&quoteSymbol=USD&limit=1`
+    `https://dev-api.shrimpy.io/v1/orderbooks?exchange=gemini&baseSymbol=${symbol}&quoteSymbol=USD&limit=1`
   ),
   axios.get(
     `https://dev-api.shrimpy.io/v1/orderbooks?exchange=coinbasepro&baseSymbol=${symbol}&quoteSymbol=USD&limit=1`
@@ -31,8 +31,8 @@ const setExchangeInDic = (dic, data, whichExchange) => {
     BidPrice: data.orderBook.bids[0].price,
     AskPrice: data.orderBook.asks[0].price,
     ExchangeLink:
-      data.exchange === 'BinanceUS'
-        ? `https://www.binance.us/en/trade/pro/${dic.CryptoTicker}_${dic.QuoteSymbol}`
+      data.exchange === 'Gemini'
+        ? `https://www.gemini.com/prices`
         : `https://pro.coinbase.com/trade/${dic.CryptoTicker}-${dic.QuoteSymbol}`,
   };
   return dic;
@@ -56,7 +56,10 @@ app.get('/getBitcoinData', (req, res) => {
   //Once its resolved get the data are return the data as a list
   //Then call the getDataInDic function to set the data in the dictionary and send it to client
   Promise.all(getApiLinks('BTC'))
-    .then((response) => [response[0].data[0], response[1].data[0]])
+    .then((response) => {
+      console.log(response[0].data[0]);
+      return [response[0].data[0], response[1].data[0]];
+    })
     .then((data) => {
       res.json(getDataInDic(data, 'Bitcoin'));
     })
