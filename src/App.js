@@ -24,10 +24,10 @@ function App() {
   const [cryptoData, setCryptoData] = useState({ Bitcoin: {}, Ethereum: {} });
 
   //Get data from server
-  const getApiData = () => {
+  const getApiData = async () => {
     //API call to server to get BTCs data, and then put that data
     //along with its logo in Bitcoin object in temp data
-    axios
+    await axios
       .get('/getBitcoinData')
       .then((response) => response.data)
       .then((data) => {
@@ -48,7 +48,7 @@ function App() {
 
     //API call to server to get ETHs data, and then put that data
     //along with its logo in Ethereum object in temp data
-    axios
+    await axios
       .get('/getEthereumData')
       .then((response) => response.data)
       .then((data) => {
@@ -72,10 +72,10 @@ function App() {
     //Initial call to API
     getApiData();
     //Call API every 65 seconds as we can only make 10 api call in 60 seconds
-    // const interval = setInterval(() => {
-    //   getApiData();
-    // }, 65000);
-    // return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      getApiData();
+    }, 65000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
