@@ -16,7 +16,7 @@ Biteum is an app that allows a user to see the Bid and Ask of Bitcoin and Ethere
 3. If you have to scale your solution to 100 users/second traffic what changes would you make, if any?
 - Theoretically, if the users were on different IP address it would be scalable, but for it to work no matter what the case, I would need to find an API that can handle that amount of requests all at once since as of right now the API has a rate limit of 10 requests/minute. Or even better solution would be to call the third-party API every 65 seconds on the server-side and store the data in a variable so, every time users join the site, it will request for the data from that variable and then will re-send the data ever time the variable gets updated in the server from the third-party API.
 
-4. What are some other enhancements you would have made, if you had more time to do this implementation
+4. What are some other enhancements you would have made, if you had more time to do this implementation?
 - I would have implemented the second part from number 3, where the server doesn't wait for the client to call the third-party API, it takes care of itself. Also maybe put in the charts of the cryptocurrency with the market price so users can see the trend.
 
 ## API used
