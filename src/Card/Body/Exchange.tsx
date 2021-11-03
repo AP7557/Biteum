@@ -23,7 +23,7 @@ const Exchange: React.FC<ExchangeProps> = ({ data }) => {
           backgroundColor={
             data.ExchangeOne?.AskPrice < data.ExchangeTwo?.AskPrice
           }>
-          {Math.round(data.ExchangeOne?.AskPrice * 100) / 100 || 'Loading'}
+          {Math.round(data.ExchangeOne?.AskPrice * 100) / 100}
         </Price>
         <Price
           type={'Sell'}
@@ -31,7 +31,7 @@ const Exchange: React.FC<ExchangeProps> = ({ data }) => {
           backgroundColor={
             data.ExchangeOne?.BidPrice > data.ExchangeTwo?.BidPrice
           }>
-          {Math.round(data.ExchangeOne?.BidPrice * 100) / 100 || 'Loading'}
+          {Math.round(data.ExchangeOne?.BidPrice * 100) / 100}
         </Price>
       </EachExchangeContainer>
       <EachExchangeContainer>
@@ -42,7 +42,7 @@ const Exchange: React.FC<ExchangeProps> = ({ data }) => {
           backgroundColor={
             data.ExchangeTwo?.AskPrice < data.ExchangeOne?.AskPrice
           }>
-          {Math.round(data.ExchangeTwo?.AskPrice * 100) / 100 || 'Loading'}
+          {Math.round(data.ExchangeTwo?.AskPrice * 100) / 100}
         </Price>
         <Price
           type={'Sell'}
@@ -50,7 +50,7 @@ const Exchange: React.FC<ExchangeProps> = ({ data }) => {
           backgroundColor={
             data.ExchangeTwo?.BidPrice > data.ExchangeOne?.BidPrice
           }>
-          {Math.round(data.ExchangeTwo?.BidPrice * 100) / 100 || 'Loading'}
+          {Math.round(data.ExchangeTwo?.BidPrice * 100) / 100}
         </Price>
       </EachExchangeContainer>
     </div>

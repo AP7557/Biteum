@@ -18,7 +18,7 @@ const Price: React.FC<PriceProps> = (props) => {
       <Button
         onClick={() => window.open(props.link, '_blank')}
         backgroundColor={props.backgroundColor}>
-        {props.children}
+        $ {props.children}
       </Button>
     </PriceContainer>
   );
